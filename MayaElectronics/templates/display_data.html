@@ -1,0 +1,84 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Departments</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Submit" class="btn btn-primary" >
+    </form>
+    {% if msg %}
+        {{msg}}
+    {% endif %}
+
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Department Name</th>
+        
+        </tr>
+    </thead>
+    <tbody>
+        {% for department in departments %}
+        <tr>
+            <th scope="row">{{ department.department_id }}</th>
+            <td>{{department.department_name}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    
+    <h1>Users</h1>
+     <div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Submit" class="btn btn-primary" >
+     </form>
+    {% if msg %}
+        {{msg}}
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">department</th>
+            <th scope="col">fullname</th>
+            <th scope="col">gender</th>
+            <th scope="col">username</th>
+            <th scope="col">telephone</th>
+            <th scope="col">address</th>
+            <th scope="col">dob</th>
+            <th scope="col">marital_status</th>
+            <th scope="col">job_role</th>
+        </thead>
+        <tbody>
+           {% for user in users %}
+               <tr>
+                  <th scope="row">{{user.user_id}}</th>
+            <td>{{ user.department.department_name }}</td>  <!-- Fix this line -->
+            <td>{{user.fullname}}</td>
+            <td>{{user.gender}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.telephone}}</td>
+            <td>{{user.address}}</td>
+            <td>{{user.dob}}</td>
+            <td>{{user.marital_status}}</td>
+            <td>{{user.job_role}}</td>
+                  <td>
+                     <a href="{% url 'edit_user_page' user.user_id %}">Edit</a> |
+                     <a href="{% url 'update_user_page' user.user_id %}">Update</a> | 
+                     <a href="{% url 'delete_user_page' user.user_id %}"
+                     onclick="return confirm('Are You Sure You Want To Delete this user')">
+                       Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+    
+</p>
+        </tbody>
+    </table>
+{% endblock content %}

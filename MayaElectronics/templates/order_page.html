@@ -1,0 +1,13 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>Order Page</h2>
+    <form method="post" action="{% url 'order_page' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Place Order">
+    </form>
+</body>
+</html>
+{% endblock content %}

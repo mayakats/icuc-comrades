@@ -1,0 +1,24 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <h2>Product List</h2>
+
+  {% if products %}
+    <ul>
+      {% for product in products %}
+        <li>
+          <p>{% if product.image %}
+           <img src="{% static product.image %}" alt="{{ product.name }}">
+          {% else %}</p>
+            <p>No image available</p>
+          {% endif %}
+          <p>{{ product.description }}</p>
+          <p>Price: ${{ product.price }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No products available.</p>
+  {% endif %}
+{% endblock content %}

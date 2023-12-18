@@ -1,0 +1,36 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div style="background-color: lightblue;">
+    <h2 id="nb" class="text-center">Contact Us</h2>
+    <div class="container" >
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        
+    </form>
+    <h3 id="nb" class="text-center" class="ybc">Our Office Address</h3>
+    <p class="text-center">Maya Building,3rd Floor B006 Kisaasi Road, Kampala-Uganda</p>
+    <h3 id="nb" class="text-center">Call Us</h3>
+    <p class="text-center">+256-706844494</p>
+    <h3 id="nb" class="text-center">General Enquiries</h3>
+    <p class="text-center">maya@electronics.com</p>
+    <h3 id="nb" class="text-center">Our Timing</h3>
+    <p class="text-center">Mon-Sun : 9:00AM-8:00PM</p>
+    <form action="" class="text-center">
+        <p><input type="text" class="c-c" id="nm" placeholder="Your Name"></p>
+        <p></p><input type="text" class="c-c"id="" placeholder="Your Email"></p> 
+        <p></p><input type="text" class="c-c" id="" placeholder="Your Contact No."></p>
+        <p id="infor-list"><input type="text" class="c-c" id="mess"  placeholder= "enter message" onkeyup="checkinput()" "Your Message" ></p>
+    
+    </form>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" class="btn btn-success">
+</form>
+
+      
+{% endblock content %}

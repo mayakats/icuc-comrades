@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post" class="form">
+    {% csrf_token %}
+    <p><a href="http://127.0.0.1:8000/admin/">Link to Admin</a></p>
+  </form>
+{% endblock content %}

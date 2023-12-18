@@ -1,0 +1,124 @@
+h1{
+    color: rgb(226, 187, 11);
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+}
+h2{
+    font-weight: bold;
+    
+}
+h3{
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+li{
+    font-size: 18px;
+    color: black;
+}
+.gbc{
+    background-color: rgb(12, 113, 146);
+    color: white;
+    text-align: center;
+}
+#bt{
+    color: white;
+    text-align: center;
+}
+#nb{
+    color: black;
+}
+#pt{
+    color: black;
+    text-align: center;
+}
+.hp{
+    background-color: rgb(12, 113, 146) ; 
+    color: white; 
+}
+
+
+li{
+    font-weight: bold;
+}
+.c-c{
+    height: 30px;
+    width: 250px;
+    border-radius: 7px;
+    border-color: white,solid;
+}
+#sub{
+    background-color: rgb(12, 113, 146) ;
+    color: white;
+    border-radius: 5px;
+    border: solid, white;
+}
+#main{
+    margin: 10px;
+}
+#menu-items li{
+    display: inline;
+    border-right: 2px,white,solid;
+    height: inherit;
+    color: white;
+    padding: 5px;
+}
+#header-div{
+    padding: 5px;
+    border-left: 2px;
+    height: inherit;
+}
+#menu-div{
+    border-right: 2px;
+    float: right;
+    color: black;
+}
+#hm{
+    background-color: lightblue;
+}
+#tes{
+    background-color: lightblue;
+}
+#top{
+    background-color: lightblue;
+}
+#im{
+    width: 80%;
+    border-radius: 10px;
+    color: black;
+}
+#abt{
+    width: 400px;
+    border-radius: 10px;
+}
+#cen{
+    display: block;margin-left:auto;margin-right: auto;width: 50%;
+}
+#abut{
+    display: block;margin-left:auto;margin-right: auto;width: 50%;  
+}
+#sev{
+    width: 50px;
+    border-radius: 200px; 
+}
+#tbr{
+    width: 50px;
+    border-radius: 200px; 
+    display: inline;  
+}
+p{
+    font-weight: bold;
+}
+#pp{
+    font-weight: bold,;
+    font-size: x-large;
+    text-align: center;
+    color: rgb(71, 61, 13);
+    
+}
+.container{
+    background-color: aqua;
+}
+

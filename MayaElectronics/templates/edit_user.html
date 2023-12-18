@@ -1,0 +1,18 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Edit - {{user.username}}</h1>
+    <div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Submit" class="btn btn-primary" >
+        <input type="button" value="Button" class="btn btn-danger" >
+    </form>
+    {% if message %}
+        {{message}}
+    {% endif %}
+    </div>
+    
+{% endblock content %}

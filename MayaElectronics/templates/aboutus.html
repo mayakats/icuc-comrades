@@ -1,0 +1,15 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div style="background-color: lightblue;">
+<h2 id="nb" class="text-center">About Us</h2>
+<div id="abut">
+    <img src="{% static 'images/est.jpg' %}" id="abt" alt="This is an image">
+</div>
+<p>
+    We, Maya Electronics located at Maya Building,3rd Floor B006 Kisaasi Road,Kampala-Uganda are a leading dealers of electronics and appliances at most affordable rates. We believe that shopping should be a very simple and easy task. We are a local e-commerce platform that intends to transform the shopping experience for our customers, by bringing our Store right to your fingertips. We aim to become the one-stop shop for all your daily needs by replacing your store visits by a few clicks on your computer or mobile.
+</p> 
+
+
+{% endblock content %}

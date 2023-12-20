@@ -75,9 +75,7 @@ li{
     float: right;
     color: black;
 }
-#hm{
-    background-color: lightblue;
-}
+
 #tes{
     background-color: lightblue;
 }
@@ -112,13 +110,18 @@ p{
     font-weight: bold;
 }
 #pp{
-    font-weight: bold,;
-    font-size: x-large;
-    text-align: center;
-    color: rgb(71, 61, 13);
     
-}
-.container{
-    background-color: aqua;
+    font-size: large;
+    text-align: center;
+    color: rgb(22, 13, 71);
+    font-style: italic;
 }
 
+.row{
+    text-align: center;
+}
+#b{
+    color: red;
+    font-size: x-large;
+    text-align:left;
+}

@@ -1,24 +1,28 @@
 {% extends "./base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block content %}
-  <h2>Product List</h2>
 
-  {% if products %}
-    <ul>
-      {% for product in products %}
-        <li>
-          <p>{% if product.image %}
-           <img src="{% static product.image %}" alt="{{ product.name }}">
-          {% else %}</p>
-            <p>No image available</p>
+{% block content %}
+  <h1>Products</h1>
+
+  <div class="row">
+    {% for product in products %}
+      <div class="col-md-4 mb-4">
+        <div class="card" >
+          {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
           {% endif %}
-          <p>{{ product.description }}</p>
-          <p>Price: ${{ product.price }}</p>
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No products available.</p>
-  {% endif %}
+          <div class="card-body">
+            <h5 class="card-title" style= text-align: center;
+><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></h5>
+            <p class="card-text" style= color:red;> Ugx {{ product.price }}</p>
+            
+            {% if product.category %}
+              <span class="category">{{ product.category.name }}</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock content %}

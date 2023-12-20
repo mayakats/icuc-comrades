@@ -2,6 +2,7 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView, L
 from django.db.models import Q
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from MayaElectronics.forms import UserForm, OrderForm, CartItemForm, ProductForm
@@ -18,6 +19,10 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from MayaElectronics.send_mail import send_confirmation_email
 from MayaElectronics.permissions import IsOwnerOrReadOnly
+from django.http import HttpResponse
+from django.db import IntegrityError
+import uuid 
+from django.http import Http404
 
 User = get_user_model()
 
@@ -48,9 +53,6 @@ def index_view(request):
 def products_view(request):
     return render(request,'products.html')
 
-def services_view(request):
-    return render(request,'services.html')
-
 def aboutus_view(request):
     return render(request,'aboutus.html')
 
@@ -59,30 +61,6 @@ def gallery_view(request):
 
 def contactus_view(request):
     return render(request,'contactus.html')
-
-def display_data_view(request):
-    departments = Department.objects.all()
-    users = User.objects.all()
-    
-    message = ''
-    if request.method == "POST":
-        user_form = UserForm(request.POST)
-
-        if user_form.is_valid():
-            user_form.save()
-            message = "User added successfully"
-    else:
-        user_form = UserForm()
-
-    users = User.objects.all()
-
-    context = {
-        'form': user_form,
-        'msg': message,
-        'users': users,
-        'departments': departments,  
-    }
-    return render(request, 'display_data.html', context)
 
 def update_user_view(request, user_id):
     user = User.objects.get(pk=user_id)
@@ -104,31 +82,33 @@ def update_user_view(request, user_id):
     }
 
     return render(request, 'update_user.html', context)
-
 def edit_user_view(request, user_id):
+    try:
         user = User.objects.get(pk=user_id)
-        message=''
-        if request.method == "POST":
-            user_form = UserForm(request.POST, instance=user)
+    except User.DoesNotExist:
+        raise Http404("User does not exist")  # or redirect to a custom error page
+    message = ''
 
-            if user_form.is_valid():
-                user_form.save()
-                message = "Changes saved Successfully"
-            else:
-                message = "Form has Invalid data"
+    if request.method == "POST":
+        user_form = UserForm(request.POST, instance=user)
+
+        if user_form.is_valid():
+            user_form.save()
+            message = "Changes saved Successfully"
         else:
-            user_form = UserForm(instance=user)
+            message = "Form has Invalid data"
+    else:
+        user_form = UserForm(instance=user)
 
-        context = {
-            'form':user_form,
-            'user':user,
-            'message':message
-        }
+    context = {
+        'form': user_form,
+        'user': user,
+        'message': message
+    }
 
-        return render(request, 'edit_user.html', context)
-
+    return render(request, 'edit_user.html', context)
 def delete_user_view(request, user_id):
-    user = User.objects.get(user_id=user_id)
+    user = User.objects.get(id=user_id)  # Use 'id' instead of 'user_id'
     user.delete()
     return redirect('display_data_view')
 
@@ -148,8 +128,8 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('products_page')
+            product = form.save()
+            return redirect('product_detail', product.id)
     else:
         form = ProductForm()
 
@@ -159,15 +139,8 @@ def add_product(request):
 
 def products_list_view(request):
     products = Product.objects.all()
-    categories = Category.objects.all()
-
-    if request.GET.get('category'):
-        category_slug = request.GET.get('category')
-        category = Category.objects.get(slug=category_slug)
-        products = products.filter(category=category)
-
-    context = {'products': products, 'categories': categories}
-    return render(request, 'products_list.html', context)
+    return render(request, 'products_list.html', {'products': products})
+    
 class CartItemView(generics.ListCreateAPIView):
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializers
@@ -238,53 +211,6 @@ class ProductFilterView(generics.ListAPIView):
 class CategoryView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-class RegisterApiView(APIView):
-    def post(self, request):
-        serializer = RegisterApiSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            user = serializer.save()
-            if user:
-                send_confirmation_email(user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-class ActivationView(APIView):
-
-    def get(self, request, activation_code):
-        try:
-            user = User.objects.get(activation_code=activation_code)
-            user.is_active = True
-            user.activation_code = ''
-            user.save()
-
-            return Response({'msg': 'Successfully activated'}, status=status.HTTP_200_OK)
-
-        except User.DoesNotExist:
-            return Response({'msg': 'Link expired'}, status=status.HTTP_404_NOT_FOUND)
-class LoginApiView(TokenObtainPairView):
-    serializer_class = LoginSerializer
-
-class LikeView(ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = LikeSerializers
-
-def add_like(request, pk):
-    if request.method == 'GET':
-        product = Product.objects.get(id=int(pk))
-        product.likes += 1
-        product.save()
-    else:
-        raise serializers.ValidationError("HTTP Error 405: Method Not Allowed")
-    return HttpResponse("")
-
-
-def add_dislike(request, pk):
-    if request.method == 'GET':
-        product = Product.objects.get(id=int(pk))
-        product.dislikes += 1
-        product.save()
-    else:
-        raise serializers.ValidationError("HTTP Error 405: Method Not Allowed")
-    return HttpResponse("")
 
 class FeedbackListCreateView(ListCreateAPIView):
     queryset = Feedback.objects.all()
@@ -299,16 +225,24 @@ class FeedbackDetailView(generics.RetrieveAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
 
 def add_to_cart(request):
-    if request.method == 'POST':
-        cart_item_form = CartItemForm(request.POST)
-        if cart_item_form.is_valid():
-            cart_item_form.save()
-            # Add any additional logic after saving the cart item
-            return redirect('cart_success')  # Redirect to a success page
-    else:
-        cart_item_form = CartItemForm()
+    product = Product.objects.get(pk=product_id)
+    cart_item, created = CartItem.objects.get_or_create(product=product)
+    cart_item.quantity += 1
+    cart_item.save()
+    return redirect('product_list')
 
-    return render(request, 'add_to_cart.html', {'cart_item_form': cart_item_form})
+def remove_from_cart(request, cart_item_id):
+    cart_item = CartItem.objects.get(pk=cart_item_id)
+    cart_item.delete()
+    return redirect('cart_view')
+
+def cart_view(request):
+    cart_items = CartItem.objects.all()
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+    return render(request, 'cart_view.html', {'cart_items': cart_items, 'total_price': total_price})
 
 
-
+def product_detail_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    context = {'product': product}
+    return render(request, 'product_detail.html', context)

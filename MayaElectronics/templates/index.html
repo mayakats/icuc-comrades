@@ -2,47 +2,87 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div style="background-color: blue;">
+<div style="background-color: ;">
 
 </div>
-     <p>
-<div id="cen">
+     
+<div>
      <img src="{% static 'images/ts.jpg' %}" alt="This is an image">
-     </p>
+     
 </div>
-<h1>Welcome to Maya Electronics Company</h1>
-     <p style="font-size: x-large;color: rgb(226, 187, 11);text-align: center;">
+<p>
+
+</p>
+     <p style="font-size: xx-large;color: red;text-align: center;">
+            Welcome to Maya Electronics Company
+        </p>
+        <p style="font-size: x-large;color: red;text-align: center;">
             Wide Range Of Large Appliances to Choose From And Make Life Simpler
         </p>
 </p>
-<p id="pp" class="text-center">
-Appliances Designed to Ease Your Life
+<p id="pp" class="text-center" style= font-style:italic style= font>
+"Appliances Designed to Ease Your Life"
 </p>
 <h2 style="color:white;">Appliances Include</h2>
 <ol>
-    <div id="hm">  
-<li style="color: black;">Electronics Appliances</li>
-<img src="{% static 'images/pt.jpg' %}" alt="This is an image">
-<img src="{% static 'images/tp.jpg' %}" alt="This is an image">
-<img src="{% static 'images/lp.jpg' %}" alt="This is an image">
-<img src="{% static 'images/pp.jpg' %}" alt="This is an image">
+ <ul style="list-style-type: none; padding: 0;">
+  <li id="b">Electronic Appliances</li>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/12.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/10.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
+    
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/11.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/14.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
 
-<li style="color: black;">Home Appliances</li>
-<img src="{% static 'images/rg.jpg' %}" alt="This an image">
-<img src="{% static 'images/kk.jpg' %}" alt="This an image">
-<img src="{% static 'images/jn.jpg' %}" alt="This an image">
+<ul style="list-style-type: none; padding: 0;">
+  <li id="b">Home Appliances</li>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/15.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/kk.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
+    
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/jn.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/13.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
 
-</div>
+<ul style="list-style-type: none; padding: 0;">
+  <li id="b">Kitchen Appliances</li>
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/4.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/3.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
+    
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/2.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
+    <div class="col-md-3 mb-3">
+      <img src="{% static 'images/1.jpg' %}" alt="This is an image" style="width: 100%; height: auto;">
+    </div>
+    
+  </div>
+</ul>
 
-<li style="color: black;">Kitchen Appliances</li>
-<img src="{% static 'images/tt.jpg' %}" alt="This is an image">
-<img src="{% static 'images/gg.jpg' %}" alt="This is an image">
-<img src="{% static 'images/aa.jpg' %}" alt="This is an image">
-<img src="{% static 'images/cdb.jpg' %}" alt="This is an image">
 
 </ol>
 
-     
 {% endblock content %}
   
- x
+   
+ 

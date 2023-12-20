@@ -3,33 +3,6 @@
 {% block content %}
   <h1>Add a New Product</h1>
   
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" required>
-    <label for="description">Description:</label>
-    <textarea name="description" id="description" cols="30" rows="10"></textarea>
-    <label for="price">Price:</label>
-    <input type="number" name="price" id="price" step=".01" required>
-    <label for="image_url">Image URL:</label>
-    <input type="url" name="image_url" id="image_url">
-    <label for="category">Category:</label>
-    <select name="category" id="category">
-        {% for category in categories %}
-            <option value="{{ category.pk }}">{{ category.name }}</option>
-        {% endfor %}
-    </select>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Product</button>
-    
-</form>
-{% endblock %}
-{% extends 'base.html' %}
-
-{% block content %}
-  <h1>Add a New Product</h1>
-  
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

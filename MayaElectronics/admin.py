@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from MayaElectronics.models import Department, User, ProductImages, Order, Cart, CartItem, Category, CustomUser, Feedback, Product
+from MayaElectronics.models import Department, User,  Order, Cart, CartItem, Category, CustomUser, Feedback, Product
 
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('department_name',)
@@ -8,27 +8,15 @@ class DepartmentAdmin(admin.ModelAdmin):
     search_fields = ('department_name',)
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('department', 'salutation', 'fullname', 'gender', 'username', 'telephone', 'address', 'dob', 'marital_status', 'job_role')
+    list_display = ('user_id','department', 'salutation', 'fullname', 'gender', 'username', 'telephone', 'address', 'dob', 'marital_status', 'job_role')
     list_filter = ('dob',)
     search_fields = ('department_id', 'fullname')
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('display_products', 'total_price', 'customer_name', 'quantity', 'email', 'address', 'telephone', 'created_at')
-    list_filter = ()
-    search_fields = ('phone_number', 'customer_name')
-
-    def display_products(self, obj):
-        return ', '.join([product.name for product in obj.products.all()])
-
-    display_products.short_description = 'Products'
-
-class ProductImageInline(admin.TabularInline):
-    model = ProductImages
-    max_num = 10
-    min_num = 1
+    list_display = ('user', 'product', 'total_price', 'customer_name', 'quantity', 'email', 'address', 'telephone', 'created_at')
 
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [ProductImageInline, ]
+   list_display = ('name', 'price', 'category', 'title', 'description', 'quantity', 'available')
 
 admin.site.register(Cart)
 admin.site.register(CartItem)

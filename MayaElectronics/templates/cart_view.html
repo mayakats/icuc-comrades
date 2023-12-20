@@ -1,0 +1,11 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>Shopping Cart</h1>
+{% for item in cart_items %}
+    <p>{{ item.product.name }} - Quantity: {{ item.quantity }} - ${{ item.product.price|floatformat:2 }} <a href="{% url 'remove_from_cart' item.id %}">Remove</a></p>
+{% endfor %}
+<p>Total Price: ${{ total_price }}</p>
+
+{% endblock content %}
